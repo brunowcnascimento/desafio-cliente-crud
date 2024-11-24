@@ -10,15 +10,18 @@ import java.util.Objects;
 public class ClientDTO {
     private Long id;
 
+    @NotEmpty
     private String name;
     private String cpf;
     private Double income;
+
+    @PastOrPresent
     private LocalDate birthDate;
     private Integer children;
 
-    public ClientDTO(Long id, String nome, String cpf, Double income, LocalDate birthDate, Integer children) {
+    public ClientDTO(Long id, String name, String cpf, Double income, LocalDate birthDate, Integer children) {
         this.id = id;
-        this.name = nome;
+        this.name = name;
         this.cpf = cpf;
         this.income = income;
         this.birthDate = birthDate;
