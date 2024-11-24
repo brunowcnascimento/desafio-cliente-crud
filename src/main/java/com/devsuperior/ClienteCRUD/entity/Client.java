@@ -1,7 +1,6 @@
 package com.devsuperior.ClienteCRUD.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
 
@@ -16,8 +15,6 @@ public class Client {
     private String nome;
     private String cpf;
     private Double income;
-
-    @PastOrPresent
     private LocalDate birthDate;
     private Integer children;
 
