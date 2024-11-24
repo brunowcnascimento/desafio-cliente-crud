@@ -1,29 +1,24 @@
 package com.devsuperior.ClienteCRUD.entity.dto;
 
 import com.devsuperior.ClienteCRUD.entity.Client;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class ClientDTO {
     private Long id;
 
-    @NotEmpty
-    private String nome;
+    private String name;
     private String cpf;
     private Double income;
-
-    @PastOrPresent
     private LocalDate birthDate;
     private Integer children;
 
     public ClientDTO(Long id, String nome, String cpf, Double income, LocalDate birthDate, Integer children) {
         this.id = id;
-        this.nome = nome;
+        this.name = nome;
         this.cpf = cpf;
         this.income = income;
         this.birthDate = birthDate;
@@ -32,7 +27,7 @@ public class ClientDTO {
 
     public ClientDTO(Client entity) {
         this.id = entity.getId();
-        this.nome = entity.getNome();
+        this.name = entity.getName();
         this.cpf = entity.getCpf();
         this.income = entity.getIncome();
         this.birthDate = entity.getBirthDate();
@@ -43,8 +38,8 @@ public class ClientDTO {
         return id;
     }
 
-    public @NotEmpty String getNome() {
-        return nome;
+    public @NotEmpty String getName() {
+        return name;
     }
 
     public String getCpf() {
@@ -61,5 +56,17 @@ public class ClientDTO {
 
     public Integer getChildren() {
         return children;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ClientDTO clientDTO)) return false;
+        return Objects.equals(id, clientDTO.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

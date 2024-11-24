@@ -3,6 +3,7 @@ package com.devsuperior.ClienteCRUD.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_client")
@@ -12,7 +13,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    private String name;
     private String cpf;
     private Double income;
     private LocalDate birthDate;
@@ -22,7 +23,7 @@ public class Client {
 
     public Client(Long id, String nome, String cpf, Double income, LocalDate birthDate, Integer children) {
         this.id = id;
-        this.nome = nome;
+        this.name = nome;
         this.cpf = cpf;
         this.income = income;
         this.birthDate = birthDate;
@@ -37,12 +38,12 @@ public class Client {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCpf() {
@@ -75,5 +76,17 @@ public class Client {
 
     public void setChildren(Integer children) {
         this.children = children;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Client client)) return false;
+        return Objects.equals(id, client.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
