@@ -1,5 +1,6 @@
 package com.devsuperior.ClienteCRUD.entity.dto;
 
+import com.devsuperior.ClienteCRUD.entity.Client;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,6 +28,15 @@ public class ClientDTO {
         this.income = income;
         this.birthDate = birthDate;
         this.children = children;
+    }
+
+    public ClientDTO(Client entity) {
+        this.id = entity.getId();
+        this.nome = entity.getNome();
+        this.cpf = entity.getCpf();
+        this.income = entity.getIncome();
+        this.birthDate = entity.getBirthDate();
+        this.children = entity.getChildren();
     }
 
     public Long getId() {
