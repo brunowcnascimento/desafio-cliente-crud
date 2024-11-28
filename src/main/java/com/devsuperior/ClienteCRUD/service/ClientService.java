@@ -3,12 +3,15 @@ package com.devsuperior.ClienteCRUD.service;
 import com.devsuperior.ClienteCRUD.entity.Client;
 import com.devsuperior.ClienteCRUD.entity.dto.ClientDTO;
 import com.devsuperior.ClienteCRUD.repository.ClientRepository;
+import com.devsuperior.ClienteCRUD.service.exceptions.DatabaseException;
 import com.devsuperior.ClienteCRUD.service.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -50,6 +53,19 @@ public class ClientService {
             return new ClientDTO(entity);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Recurso não encontrado");
+        }
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void deleteById(Long id) {
+        if(!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
+        try {
+            repository.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Falha de integridade referencial");
         }
     }
 
